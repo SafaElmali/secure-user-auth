@@ -2,6 +2,8 @@
 
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const { SALT_WORK_FACTOR } = require('../utils/constants');
 
 //https://www.npmjs.com/package/mongoose-unique-validator
 const uniqueValidator = require('mongoose-unique-validator');
@@ -41,6 +43,35 @@ UserSchema.set('toJSON', {
         delete returnedObject.__v
     }
 })
+
+// pre hash and salt password: https://www.mongodb.com/blog/post/password-authentication-with-mongoose-part-1
+// The “this” object is empty in pre('save') fix : https://stackoverflow.com/questions/39166700/the-this-object-is-empty-in-presave/49849846
+UserSchema.pre('save', function (next) {
+    const user = this;
+    //generate salt
+    //  Illegal arguments: string, undefined fix : https://stackoverflow.com/questions/52982858/illegal-arguments-undefined-string
+    bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
+        if (err) return next(err);
+
+        //hash the password using our new salt
+        bcrypt.hash(user.password, salt, function (err, hash) {
+            if (err) return next(err);
+
+            //override the cleartext password with the hashed one
+            user.password = hash;
+            console.log(user);
+            next();
+        })
+    })
+})
+
+//when user try to login, compare the password in db and the entered 
+UserSchema.methods.comparePassword = (enteredPassword, cb) => {
+    bcrypt.compare(enteredPassword, this.password, (err, isMatch) => {
+        if (err) return cb(err);
+        cb(null, isMatch)
+    })
+}
 
 // UserSchema.methods.generateJWT = function () {
 //     const today = new Date();
