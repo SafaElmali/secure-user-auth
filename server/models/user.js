@@ -32,17 +32,17 @@ const UserSchema = new mongoose.Schema({
 
 //uniqueValidator: https://www.npmjs.com/package/mongoose-unique-validator
 UserSchema.plugin(uniqueValidator, { message: 'Error, expected {PATH} to be unique.' });
-UserSchema.methods.generateJWT = function () {
-    const today = new Date();
-    const exp = new Date(today);
-    exp.setDate(today.getDate() + 10);
+// UserSchema.methods.generateJWT = function () {
+//     const today = new Date();
+//     const exp = new Date(today);
+//     exp.setDate(today.getDate() + 10);
 
-    return jwt.sign({
-        id: this._id,
-        name: this.name,
-        exp: parseInt(exp.getTime() / 1000),
-    }, process.env.JWT_SECRET);
-}
+//     return jwt.sign({
+//         id: this._id,
+//         name: this.name,
+//         exp: parseInt(exp.getTime() / 1000),
+//     }, process.env.JWT_SECRET);
+// }
 
 module.exports = mongoose.model('User', UserSchema);
 
