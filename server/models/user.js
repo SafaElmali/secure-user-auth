@@ -25,6 +25,9 @@ const UserSchema = new mongoose.Schema({
         minlength: 5,
         required: true
     },
+    roles: {
+        type: Array,
+    }
 }, { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } });
 
 //uniqueValidator: https://www.npmjs.com/package/mongoose-unique-validator
@@ -41,4 +44,5 @@ UserSchema.methods.generateJWT = function () {
     }, process.env.JWT_SECRET);
 }
 
-mongoose.model('User', UserSchema);
+module.exports = mongoose.model('User', UserSchema);
+

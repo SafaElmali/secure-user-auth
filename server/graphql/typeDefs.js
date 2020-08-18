@@ -5,7 +5,7 @@ const typeDefs = gql`
         id:ID!,
         name:String!,
         password:String!
-        mail:String!,
+        email:String!,
         roles:[Role!]!
     }
 
