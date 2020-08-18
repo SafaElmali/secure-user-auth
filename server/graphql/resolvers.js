@@ -1,4 +1,4 @@
-const { gql, UserInputError } = require('apollo-server');
+const { UserInputError, AuthenticationError } = require('apollo-server');
 const User = require('../models/user');
 
 /*
@@ -23,6 +23,25 @@ const resolvers = {
             }
             return user;
         }
+    },
+    Mutation: {
+        login: async (root, args, context) => {
+            await User.findOne({ name: args.name }, function (err, user) {
+                if (err) throw err;
+
+                if (!user) throw new AuthenticationError('this user is not found!');
+
+                //compare passwords
+                user.authenticate(args.password, async function (err, isMatch) {
+                    if (err) throw err;
+
+                    if (!isMatch) throw new AuthenticationError('wrong password!');
+
+                    const jwt = await user.generateJWT();
+                    return { value: jwt };
+                })
+            })
+        },
     }
 }
 

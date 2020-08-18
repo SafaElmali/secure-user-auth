@@ -50,11 +50,11 @@ UserSchema.pre('save', function (next) {
     const user = this;
     //generate salt
     //  Illegal arguments: string, undefined fix : https://stackoverflow.com/questions/52982858/illegal-arguments-undefined-string
-    bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
+    bcrypt.genSalt(SALT_WORK_FACTOR, async function (err, salt) {
         if (err) return next(err);
 
         //hash the password using our new salt
-        bcrypt.hash(user.password, salt, function (err, hash) {
+        await bcrypt.hash(user.password, salt, function (err, hash) {
             if (err) return next(err);
 
             //override the cleartext password with the hashed one
@@ -66,24 +66,27 @@ UserSchema.pre('save', function (next) {
 })
 
 //when user try to login, compare the password in db and the entered 
-UserSchema.methods.comparePassword = (enteredPassword, cb) => {
+UserSchema.methods.authenticate = function (enteredPassword, callbackF) {
     bcrypt.compare(enteredPassword, this.password, (err, isMatch) => {
-        if (err) return cb(err);
-        cb(null, isMatch)
+        if (err) return callbackF(err);
+        callbackF(null, isMatch)
     })
 }
 
-// UserSchema.methods.generateJWT = function () {
-//     const today = new Date();
-//     const exp = new Date(today);
-//     exp.setDate(today.getDate() + 10);
+UserSchema.methods.generateJWT = async function () {
+    const today = new Date();
+    const exp = new Date(today);
+    exp.setDate(today.getDate() + 10);
 
-//     return jwt.sign({
-//         id: this._id,
-//         name: this.name,
-//         exp: parseInt(exp.getTime() / 1000),
-//     }, process.env.JWT_SECRET);
-// }
+    const jwtToken = await jwt.sign({
+        id: this._id,
+        name: this.name,
+        email: this.email,
+        exp: parseInt(exp.getTime() / 300000),
+    }, process.env.JWT_SECRET);
+
+    return jwtToken;
+}
 
 module.exports = mongoose.model('User', UserSchema);
 
