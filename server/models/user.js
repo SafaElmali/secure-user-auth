@@ -32,6 +32,16 @@ const UserSchema = new mongoose.Schema({
 
 //uniqueValidator: https://www.npmjs.com/package/mongoose-unique-validator
 UserSchema.plugin(uniqueValidator, { message: 'Error, expected {PATH} to be unique.' });
+
+// return id instead _id: https://fullstackopen.com/en/part3/saving_data_to_mongo_db
+UserSchema.set('toJSON', {
+    transform: (document, returnedObject) => {
+        returnedObject.id = returnedObject._id.toString()
+        delete returnedObject._id
+        delete returnedObject.__v
+    }
+})
+
 // UserSchema.methods.generateJWT = function () {
 //     const today = new Date();
 //     const exp = new Date(today);
