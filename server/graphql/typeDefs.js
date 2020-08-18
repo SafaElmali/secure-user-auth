@@ -1,6 +1,12 @@
 const { gql } = require('apollo-server');
 
 const typeDefs = gql`
+    enum Role {
+        ADMIN,
+        MAINTAINER,
+        CUSTOMER
+    }
+
     type User{
         id:ID!,
         name:String!,
@@ -9,14 +15,14 @@ const typeDefs = gql`
         roles:[Role!]!
     }
 
-    enum Role {
-        ADMIN,
-        MAINTAINER,
-        CUSTOMER
+    type Token{
+        value:String
     }
 
-    type Query{
+    type Query {
         me:User
+        createUser(name:String!,email:String!,password:String!,roles:[Role!]):User
+        login(name:String,email:String,password:String!):Token
     }
 `
 
