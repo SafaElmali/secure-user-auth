@@ -26,20 +26,16 @@ const resolvers = {
     },
     Mutation: {
         login: async (root, args, context) => {
-            await User.findOne({ name: args.name }, function (err, user) {
-                if (err) throw err;
+            const user = await User.findOne({ name: args.name });
 
-                if (!user) throw new AuthenticationError('this user is not found!');
+            if (!user) throw new AuthenticationError('this user is not found!');
 
-                //compare passwords
-                user.authenticate(args.password, async function (err, isMatch) {
-                    if (err) throw err;
+            return user.authenticate(args.password).then(isMatch => {
+                if (!isMatch) throw new AuthenticationError('wrong password!');
 
-                    if (!isMatch) throw new AuthenticationError('wrong password!');
-
-                    const jwt = await user.generateJWT();
-                    return { value: jwt };
-                })
+                return { value: user.generateJWT() };
+            }).catch(err => {
+                throw err;
             })
         },
     }

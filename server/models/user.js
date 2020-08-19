@@ -65,24 +65,16 @@ UserSchema.pre('save', function (next) {
     })
 })
 
-//when user try to login, compare the password in db and the entered 
-UserSchema.methods.authenticate = function (enteredPassword, callbackF) {
-    bcrypt.compare(enteredPassword, this.password, (err, isMatch) => {
-        if (err) return callbackF(err);
-        callbackF(null, isMatch)
-    })
+// when user try to login, compare the password in db and the entered 
+UserSchema.methods.authenticate = function (enteredPassword) {
+    return bcrypt.compare(enteredPassword, this.password);
 }
 
-UserSchema.methods.generateJWT = async function () {
-    const today = new Date();
-    const exp = new Date(today);
-    exp.setDate(today.getDate() + 10);
-
-    const jwtToken = await jwt.sign({
+UserSchema.methods.generateJWT = function () {
+    const jwtToken = jwt.sign({
         id: this._id,
         name: this.name,
         email: this.email,
-        exp: parseInt(exp.getTime() / 300000),
     }, process.env.JWT_SECRET);
 
     return jwtToken;
