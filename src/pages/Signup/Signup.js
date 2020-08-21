@@ -1,29 +1,29 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { SIGN_UP } from '../../graphql';
-import { Redirect } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 
 const Signup = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const history = useHistory();
 
     const [saveUser] = useMutation(SIGN_UP, {
         onError: (error) => {
             console.log(error)
         },
         onCompleted: () => {
-        debugger;
             setName('');
             setEmail('');
             setPassword('');
             console.log("Redirecting to login page");
-            return <Redirect to="/login" />
+            history.push('/login');
         }
     })
     const handleSignup = (event) => {
         event.preventDefault();
-        debugger;
+
         saveUser({ variables: { name, email, password } })
     }
 
