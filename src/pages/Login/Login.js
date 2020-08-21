@@ -12,6 +12,8 @@ const Login = () => {
         onCompleted: (data) => {
             console.log("Successfully logged in!");
             console.log(data);
+            setName('');
+            setPassword('');
         }
     })
 
