@@ -21,11 +21,12 @@ const typeDefs = gql`
 
     type Query {
         me:User
-        createUser(name:String!,email:String!,password:String!,roles:[Role!]):User
     }
 
     type Mutation{
         login(name:String,password:String!):Token
+        createUser(name:String!,email:String!,password:String!):User
+        modifyUserRoles(name:String,roles:[Role!]):User
     }
 `
 

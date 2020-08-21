@@ -12,6 +12,8 @@ const resolvers = {
             // throw an error.
             // if (!context.currentUser || !context.currentUser.roles.includes('admin')) return null;
         },
+    },
+    Mutation: {
         createUser: async (root, args, context) => {
             const user = new User({ ...args });
             try {
@@ -22,9 +24,7 @@ const resolvers = {
                 })
             }
             return user;
-        }
-    },
-    Mutation: {
+        },
         login: async (root, args, context) => {
             const user = await User.findOne({ name: args.name });
 
@@ -38,6 +38,9 @@ const resolvers = {
                 throw err;
             })
         },
+        modifyUserRoles: async (root, args, context) => {
+            console.log(args);
+        }
     }
 }
 
