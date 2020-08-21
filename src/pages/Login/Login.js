@@ -1,11 +1,24 @@
 import React, { useState } from 'react';
+import { useMutation } from '@apollo/client';
+import { LOGIN } from '../../graphql';
 
 const Login = () => {
     const [name, setName] = useState('');
     const [password, setPassword] = useState('')
+    const [loginUser] = useMutation(LOGIN, {
+        onError: (err) => {
+            console.log(err)
+        },
+        onCompleted: (data) => {
+            console.log("Successfully logged in!");
+            console.log(data);
+        }
+    })
 
-    const handleLogin = () => {
+    const handleLogin = (event) => {
+        event.preventDefault();
 
+        loginUser({ variables: { name, password } });
     }
 
     return (
