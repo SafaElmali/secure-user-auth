@@ -31,7 +31,7 @@ const resolvers = {
             if (!user) throw new AuthenticationError('this user is not found!');
 
             return user.authenticate(args.password).then(isMatch => {
-                if (!isMatch) throw new AuthenticationError('wrong password!');
+                if (!isMatch) throw new AuthenticationError('wrong password or username!');
 
                 return { value: user.generateJWT() };
             }).catch(err => {

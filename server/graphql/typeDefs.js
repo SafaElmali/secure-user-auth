@@ -15,8 +15,11 @@ const typeDefs = gql`
         roles:[Role!]!
     }
 
-    type Token{
-        value:String
+    type AuthInfo{
+        message:String,
+        token:String,
+        userInfo:User,
+        expiresAt:Int!
     }
 
     type Query {
@@ -24,9 +27,9 @@ const typeDefs = gql`
     }
 
     type Mutation{
-        login(name:String!,password:String!):Token
+        login(name:String!,password:String!):AuthInfo
         createUser(name:String!,email:String!,password:String!):User
-        modifyUserRoles(name:String,roles:[Role!]):User
+        modifyUserRoles(name:String,roles:[Role!]):AuthInfo
     }
 `
 
