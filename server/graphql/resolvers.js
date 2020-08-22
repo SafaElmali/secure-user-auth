@@ -33,7 +33,6 @@ const resolvers = {
                         password: savedUser.password,
                         role: savedUser.role
                     }
-
                     return {
                         message: 'User Created!',
                         token,
@@ -45,7 +44,6 @@ const resolvers = {
                         message: 'There was a problem creating your account',
                     }
                 }
-
             } catch (error) {
                 throw new UserInputError(error.message, {
                     invalidArgs: args
