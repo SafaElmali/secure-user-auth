@@ -11,11 +11,15 @@ export const LOGIN = gql`
 export const SIGN_UP = gql`
     mutation Signup($name:String!,$email:String!,$password:String!){
         createUser(name:$name,email:$email,password:$password){
-            id,
+        message,
+        token,
+        userInfo{
             name,
-            password,
             email,
-            roles
+            password,
+            role
+        },
+        expiresAt
         }
     }
 `

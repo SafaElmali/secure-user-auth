@@ -1,5 +1,6 @@
 const { UserInputError, AuthenticationError } = require('apollo-server');
 const User = require('../models/user');
+const jwtDecode = require('jwt-decode');
 
 /*
 https://www.apollographql.com/docs/apollo-server/security/authentication/#authorization-in-resolvers*/
@@ -15,15 +16,41 @@ const resolvers = {
     },
     Mutation: {
         createUser: async (root, args, context) => {
-            const user = new User({ ...args });
+            const user = new User({ ...args, role: 'ADMIN' });
             try {
-                await user.save();
+                // Save user
+                const savedUser = await user.save();
+
+                //If user saved get token for it and response with
+                if (savedUser) {
+                    const token = savedUser.generateJWT();
+                    const decodeToken = jwtDecode(token);
+                    const expiresAt = decodeToken.exp;
+
+                    const userInfo = {
+                        name: savedUser.name,
+                        email: savedUser.email.toLowerCase(),
+                        password: savedUser.password,
+                        role: savedUser.role
+                    }
+
+                    return {
+                        message: 'User Created!',
+                        token,
+                        userInfo,
+                        expiresAt
+                    }
+                } else {
+                    return {
+                        message: 'There was a problem creating your account',
+                    }
+                }
+
             } catch (error) {
                 throw new UserInputError(error.message, {
                     invalidArgs: args
                 })
             }
-            return user;
         },
         login: async (root, args, context) => {
             const user = await User.findOne({ name: args.name });

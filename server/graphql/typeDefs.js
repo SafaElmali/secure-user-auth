@@ -12,7 +12,7 @@ const typeDefs = gql`
         name:String!,
         password:String!
         email:String!,
-        roles:[Role!]!
+        role:Role!
     }
 
     type AuthInfo{
@@ -28,7 +28,7 @@ const typeDefs = gql`
 
     type Mutation{
         login(name:String!,password:String!):AuthInfo
-        createUser(name:String!,email:String!,password:String!):User
+        createUser(name:String!,email:String!,password:String!):AuthInfo
         modifyUserRoles(name:String,roles:[Role!]):AuthInfo
     }
 `

@@ -27,8 +27,8 @@ const UserSchema = new mongoose.Schema({
         minlength: 5,
         required: true
     },
-    roles: {
-        type: Array,
+    role: {
+        type: String
     }
 }, { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } });
 
@@ -75,7 +75,9 @@ UserSchema.methods.generateJWT = function () {
         id: this._id,
         name: this.name,
         email: this.email,
-    }, process.env.JWT_SECRET);
+        role: this.role,
+    }, process.env.JWT_SECRET,
+        { algorithm: 'HS256', expiresIn: '1h' });
 
     return jwtToken;
 }
