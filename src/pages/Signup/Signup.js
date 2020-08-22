@@ -21,7 +21,7 @@ const Signup = () => {
             console.log("Redirecting to login page");
             setTimeout(() => {
                 setRedirectToLogin(true);
-            })
+            }, 1500)
         }
     })
     const handleSignup = (event) => {

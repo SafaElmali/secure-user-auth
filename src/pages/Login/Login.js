@@ -1,19 +1,26 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { LOGIN } from '../../graphql';
+import { Redirect } from 'react-router-dom';
 
 const Login = () => {
     const [name, setName] = useState('');
     const [password, setPassword] = useState('')
+    const [redirectToLogin, setRedirectToLogin] = useState(false);
+
     const [loginUser] = useMutation(LOGIN, {
         onError: (err) => {
             console.log(err)
         },
         onCompleted: (data) => {
-            console.log("Successfully logged in!");
-            console.log(data);
+
             setName('');
             setPassword('');
+            console.log(data);
+            console.log("Redirecting to login page");
+            setTimeout(() => {
+                setRedirectToLogin(true);
+            })
         }
     })
 
@@ -24,7 +31,8 @@ const Login = () => {
     }
 
     return (
-        <div>
+        <>
+            {redirectToLogin && <Redirect to="/dashboard" />}
             <form onSubmit={handleLogin}>
                 <div>
                     <div>
@@ -38,7 +46,7 @@ const Login = () => {
                     <button type="submit">Let me in!</button>
                 </div>
             </form>
-        </div>
+        </>
     )
 }
 

@@ -5,7 +5,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import Home from './pages/Home/Home';
+import Home from './pages/Dashboard/Dashboard';
 import Login from './pages/Login/Login';
 import Signup from './pages/Signup/Signup';
 
@@ -16,7 +16,7 @@ function App() {
         <nav>
           <ul>
             <li>
-              <Link to="/home">Home</Link>
+              <Link to="/dashboard">Home</Link>
             </li>
             <li>
               <Link to="/login">Login</Link>
@@ -30,7 +30,7 @@ function App() {
         {/* A <Switch> looks through its children <Route>s and
           renders the first one that matches the current URL. */}
         <Switch>
-          <Route path="/home">
+          <Route path="/dashboard">
             <Home />
           </Route>
           <Route path="/login">
