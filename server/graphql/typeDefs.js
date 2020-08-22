@@ -3,8 +3,7 @@ const { gql } = require('apollo-server');
 const typeDefs = gql`
     enum Role {
         ADMIN,
-        MAINTAINER,
-        CUSTOMER
+        USER,
     }
 
     type User{

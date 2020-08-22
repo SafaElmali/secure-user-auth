@@ -51,16 +51,41 @@ const resolvers = {
             }
         },
         login: async (root, args, context) => {
+            // *** lean(): https://mongoosejs.com/docs/tutorials/lean.html
+            // This makes queries faster and less memory intensive, but the result documents are plain old JavaScript objects (POJOs), not Mongoose documents
             const user = await User.findOne({ name: args.name });
 
-            if (!user) throw new AuthenticationError('this user is not found!');
+            if (!user) throw new AuthenticationError('User Not Found!');
 
             return user.authenticate(args.password).then(isMatch => {
-                if (!isMatch) throw new AuthenticationError('wrong password or username!');
+                if (!isMatch) throw new AuthenticationError('Wrong Password Or Username!');
 
-                return { value: user.generateJWT() };
+                // If we used lean we can do this
+                // const { password, bio, ...rest } = user;
+                // const userInfo = Object.assign({}, { ...rest });
+
+                const userInfo = {
+                    name: user.name,
+                    email: user.email.toLowerCase(),
+                    password: user.password,
+                    role: user.role
+                }
+
+                const token = user.generateJWT();
+                const decodeToken = jwtDecode(token);
+                const expiresAt = decodeToken.exp;
+
+                return {
+                    message: 'Authentication successful!',
+                    token,
+                    userInfo,
+                    expiresAt
+                }
             }).catch(err => {
-                throw err;
+                console.log(err);
+                return {
+                    message: 'Something went wrong!',
+                }
             })
         },
         modifyUserRoles: async (root, args, context) => {
