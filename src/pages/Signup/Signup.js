@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useMutation } from '@apollo/client';
 import { SIGN_UP } from '../../graphql';
 import { Redirect } from 'react-router-dom';
+import { AuthContext } from '../../context/AutContext';
 
 const Signup = () => {
+    const authContext = useContext(AuthContext);
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -19,6 +21,7 @@ const Signup = () => {
             setPassword('');
             console.log(data);
             console.log("Redirecting to login page");
+            authContext.setAuthState((data.createUser));
             setTimeout(() => {
                 setRedirectToLogin(true);
             }, 1500)

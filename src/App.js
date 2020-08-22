@@ -8,10 +8,11 @@ import {
 import Home from './pages/Dashboard/Dashboard';
 import Login from './pages/Login/Login';
 import Signup from './pages/Signup/Signup';
+import { AuthProvider } from './context/AutContext';
 
-function App() {
+
+const AppRoutes = () => {
   return (
-    <Router>
       <div>
         <nav>
           <ul>
@@ -28,7 +29,7 @@ function App() {
         </nav>
 
         {/* A <Switch> looks through its children <Route>s and
-          renders the first one that matches the current URL. */}
+        renders the first one that matches the current URL. */}
         <Switch>
           <Route path="/dashboard">
             <Home />
@@ -41,6 +42,17 @@ function App() {
           </Route>
         </Switch>
       </div>
+  )
+}
+
+function App() {
+  return (
+    <Router>
+      <AuthProvider>
+        <div>
+          <AppRoutes />
+        </div>
+      </AuthProvider>
     </Router>
   );
 }

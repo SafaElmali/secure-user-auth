@@ -1,6 +1,13 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import { AuthContext } from '../../context/AutContext';
 
 const Home = () => {
+    const authContext = useContext(AuthContext);
+
+    useEffect(() => {
+        console.log(authContext);
+    }, [authContext])
+
     return (
         <div>
             <div>
