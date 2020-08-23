@@ -15,8 +15,8 @@
 - [x] Send JWT if the user details are correct
 - [ ] Login Screen
 - [ ] Heroku Deployment
-- [ ] Store JWT in client
-- [ ] Add expire date for token
+- [x] Store JWT in client
+- [x] Add expire date for token
 - [ ] Silent Token - Refresh Token
 - [ ] log actions
 - [ ] Display screens based on user role(s)
