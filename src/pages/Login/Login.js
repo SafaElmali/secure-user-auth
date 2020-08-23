@@ -8,7 +8,7 @@ const Login = () => {
     const authContext = useContext(AuthContext);
     const [name, setName] = useState('');
     const [password, setPassword] = useState('')
-    const [redirectToLogin, setRedirectToLogin] = useState(false);
+    const [redirectToDashboard, setRedirectToDashboard] = useState(false);
 
     const [loginUser] = useMutation(LOGIN, {
         onError: (err) => {
@@ -21,7 +21,7 @@ const Login = () => {
             console.log("Redirecting to login page");
             authContext.setAuthState((data.login));
             setTimeout(() => {
-                setRedirectToLogin(true);
+                setRedirectToDashboard(true);
             })
         }
     })
@@ -34,7 +34,7 @@ const Login = () => {
 
     return (
         <>
-            {redirectToLogin && <Redirect to="/dashboard" />}
+            {redirectToDashboard && <Redirect to="/dashboard" />}
             <form onSubmit={handleLogin}>
                 <div>
                     <div>

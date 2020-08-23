@@ -10,7 +10,6 @@ import Login from './pages/Login/Login';
 import Signup from './pages/Signup/Signup';
 import { AuthProvider } from './context/AutContext';
 
-
 const AppRoutes = () => {
   return (
       <div>

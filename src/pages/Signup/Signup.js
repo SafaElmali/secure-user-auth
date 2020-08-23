@@ -9,7 +9,7 @@ const Signup = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [redirectToLogin, setRedirectToLogin] = useState(false);
+    const [redirectToDashboard, setRedirectToDashboard] = useState(false);
 
     const [saveUser] = useMutation(SIGN_UP, {
         onError: (error) => {
@@ -23,7 +23,7 @@ const Signup = () => {
             console.log("Redirecting to login page");
             authContext.setAuthState((data.createUser));
             setTimeout(() => {
-                setRedirectToLogin(true);
+                setRedirectToDashboard(true);
             }, 1500)
         }
     })
@@ -35,7 +35,7 @@ const Signup = () => {
 
     return (
         <>
-            {redirectToLogin && <Redirect to="/login" />}
+            {redirectToDashboard && <Redirect to="/dashboard" />}
             <form onSubmit={handleSignup}>
                 <div>
                     <label htmlFor="name">Name</label>
