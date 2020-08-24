@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../context/AutContext';
 
-const Home = () => {
+const Dashboard = () => {
     const authContext = useContext(AuthContext);
     const { token, expiresAt, userInfo } = authContext.authState;
     return (
@@ -15,4 +15,4 @@ const Home = () => {
     )
 }
 
-export default Home
+export default Dashboard
