@@ -41,6 +41,10 @@ const AuthProvider = ({ children }) => {
         history.push("/login");
     }
 
+    //Check user role for conditionally displaying components
+    const isAdmin = () => {
+        return authState.userInfo.role === 'ADMIN';
+    }
 
     // Check has token && token is valid
     const isAuthenticated = () => {
@@ -52,7 +56,7 @@ const AuthProvider = ({ children }) => {
     }
 
     return (
-        <Provider value={{ authState, setAuthState: authInfo => setAuthInfo(authInfo), isAuthenticated, logout }}>
+        <Provider value={{ authState, setAuthState: authInfo => setAuthInfo(authInfo), isAuthenticated, logout, isAdmin }}>
             {children}
         </Provider>
     )
