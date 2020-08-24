@@ -1,4 +1,5 @@
 import React, { createContext, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 const AuthContext = createContext();
 const { Provider } = AuthContext;
@@ -8,6 +9,7 @@ const AuthProvider = ({ children }) => {
     const token = localStorage.getItem('token');
     const userInfo = localStorage.getItem('userInfo');
     const expiresAt = localStorage.getItem('expiresAt');
+    const history = useHistory();
 
     const [authState, setAuthState] = useState({
         token,
@@ -26,6 +28,20 @@ const AuthProvider = ({ children }) => {
         })
     }
 
+    //Remove localstorage && redirect to login
+    const logout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('userInfo');
+        localStorage.removeItem('expiresAt');
+        setAuthState({
+            token: null,
+            expiresAt: null,
+            userInfo: {}
+        });
+        history.push("/login");
+    }
+
+
     // Check has token && token is valid
     const isAuthenticated = () => {
         if (!authState.token || !authState.expiresAt) {
@@ -36,7 +52,7 @@ const AuthProvider = ({ children }) => {
     }
 
     return (
-        <Provider value={{ authState, setAuthState: authInfo => setAuthInfo(authInfo), isAuthenticated }}>
+        <Provider value={{ authState, setAuthState: authInfo => setAuthInfo(authInfo), isAuthenticated, logout }}>
             {children}
         </Provider>
     )
