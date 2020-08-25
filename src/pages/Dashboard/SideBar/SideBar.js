@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { faChartLine, faChartPie, faAddressCard, faCogs, faDoorOpen } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../../context/AutContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const navItems = [
     {
@@ -40,14 +41,16 @@ const Sidebar = () => {
     const { role } = authContext.authState.userInfo;
 
     return (
-        <ul>
+        <ul style={{ listStyle: 'none', marginRight: 10 }}>
             {navItems.map(item => {
                 return (
                     <>
                         {authContext.isAdmin() && item.allowedRoles.includes(role) && (
-                            <a href={item.path}>
-                                <li>{item.label}</li>
-                            </a>
+                            <div>
+                                <a href={item.path} style={{ display: 'flex' }}>
+                                    <FontAwesomeIcon icon={item.icon} />  <li>{item.label}</li>
+                                </a>
+                            </div>
                         )}
                     </>
                 )
