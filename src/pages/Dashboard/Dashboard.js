@@ -1,16 +1,12 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../context/AutContext';
-import Sidebar from './SideBar/SideBar';
 
 const Dashboard = () => {
     const authContext = useContext(AuthContext);
     const { token, expiresAt, userInfo } = authContext.authState;
 
     return (
-        <div style={{ display: 'flex' }}>
-            <div>
-                <Sidebar />
-            </div>
+        <div>
             <div>
                 <p>{token}</p>
                 <p>{expiresAt}</p>
@@ -23,4 +19,4 @@ const Dashboard = () => {
     )
 }
 
-export default Dashboard
+export default Dashboard;

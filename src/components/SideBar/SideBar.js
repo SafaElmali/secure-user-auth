@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import { faChartLine, faChartPie, faAddressCard, faCogs, faDoorOpen } from '@fortawesome/free-solid-svg-icons';
-import { AuthContext } from '../../../context/AutContext';
+import { AuthContext } from '../../context/AutContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
 
 const navItems = [
     {
@@ -42,17 +43,17 @@ const Sidebar = () => {
 
     return (
         <ul style={{ listStyle: 'none', marginRight: 10 }}>
-            {navItems.map(item => {
+            {navItems.map((item,index) => {
                 return (
-                    <>
+                    <div key={index}>
                         {authContext.isAdmin() && item.allowedRoles.includes(role) && (
                             <div>
-                                <a href={item.path} style={{ display: 'flex' }}>
+                                <Link to={item.path} style={{ display: 'flex' }}>
                                     <FontAwesomeIcon icon={item.icon} />  <li>{item.label}</li>
-                                </a>
+                                </Link>
                             </div>
                         )}
-                    </>
+                    </div>
                 )
             })
             }
