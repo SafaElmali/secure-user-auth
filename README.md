@@ -1,12 +1,21 @@
 
 ## Toolbox Of This Project 🧰 
+
+### Server-Side
 - [apollo-server](https://github.com/apollographql/apollo-server#readme)
 - [bcryptjs](https://github.com/dcodeIO/bcrypt.js#readme)
 - [dotenv](https://github.com/motdotla/dotenv#readme)
 - [graphql](https://github.com/graphql/graphql-js)
 - [mongoose](https://github.com/Automattic/mongoose)
 - [mongoose-unique-validator](https://github.com/blakehaswell/mongoose-unique-validator#readme)
+- [graphql-type-json](https://github.com/taion/graphql-type-json)
+
+### Client-Side
 - [react](https://tr.reactjs.org/)
+- [apollo-client](https://www.npmjs.com/package/@apollo/client)
+- [font-awesome](https://fontawesome.com/how-to-use/on-the-web/using-with/react)
+- [apollo-link-context](https://www.npmjs.com/package/apollo-link-context)
+
 
 ## TODO List
 - [x] Setup Packages
