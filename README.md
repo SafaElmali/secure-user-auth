@@ -13,13 +13,14 @@
 - [x] Create User Schema
 - [x] Save User and Hash & Salt the password
 - [x] Send JWT if the user details are correct
-- [ ] Login Screen
+- [ ] Design
 - [ ] Heroku Deployment
 - [x] Store JWT in client
 - [x] Add expire date for token
 - [ ] Silent Token - Refresh Token
 - [ ] log actions
-- [ ] Display screens based on user role(s)
+- [x] Display screens based on user role(s)
+- [x] Make a default template for panel
 
 
 
