@@ -32,7 +32,7 @@ const server = new ApolloServer({
     // Get the user token from the headers.
     context: async ({ req }) => {
         const auth = req ? req.headers.authorization : null
-        if (auth && auth.toLowerCase().startsWith('Bearer ')) {
+        if (auth && auth.toLowerCase().startsWith('bearer ')) {
             const decodedToken = jwt.verify(
                 auth.substring(7), process.env.JWT_SECRET)
 
@@ -40,7 +40,7 @@ const server = new ApolloServer({
             // optionally block the user
             if (!decodedToken) throw new AuthenticationError('you must be logged in');
 
-            const currentUser = await User.findById(decodedToken.name)
+            const currentUser = await User.findOne({ name: decodedToken.name }).lean();
 
             return { currentUser }
         }
