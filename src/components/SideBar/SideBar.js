@@ -40,13 +40,13 @@ const navItems = [
 const Sidebar = () => {
     const authContext = useContext(AuthContext);
     const { role } = authContext.authState.userInfo;
-
+    
     return (
         <ul style={{ listStyle: 'none', marginRight: 10 }}>
             {navItems.map((item,index) => {
                 return (
                     <div key={index}>
-                        {authContext.isAdmin() && item.allowedRoles.includes(role) && (
+                        {item.allowedRoles.includes(role) && (
                             <div>
                                 <Link to={item.path} style={{ display: 'flex' }}>
                                     <FontAwesomeIcon icon={item.icon} />  <li>{item.label}</li>

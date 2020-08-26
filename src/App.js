@@ -14,6 +14,7 @@ import NotFound from './pages/NotFound/NotFound';
 import Inventory from './pages/Inventory/Inventory';
 import AppShell from './components/AppShell/AppShell';
 import Account from './pages/Account/Account';
+import Users from './pages/Users/Users';
 
 const AuthenticatedRoute = ({ children, ...props }) => {
   const authContext = useContext(AuthContext);
@@ -21,6 +22,21 @@ const AuthenticatedRoute = ({ children, ...props }) => {
   return (
     <Route {...props} render={() =>
       authContext.isAuthenticated() ? (
+        <AppShell>
+          {children}
+        </AppShell>
+      ) : (
+          <Redirect to="/" />
+        )
+    } />
+  )
+}
+
+const AdminRoute = ({ children, ...props }) => {
+  const authContext = useContext(AuthContext);
+  return (
+    <Route {...props} render={() =>
+      authContext.isAuthenticated() && authContext.isAdmin() ? (
         <AppShell>
           {children}
         </AppShell>
@@ -48,12 +64,15 @@ const AppRoutes = () => {
       <AuthenticatedRoute path="/dashboard">
         <Dashboard />
       </AuthenticatedRoute>
-      <AuthenticatedRoute path="/inventory">
+      <AdminRoute path="/inventory">
         <Inventory />
-      </AuthenticatedRoute>
+      </AdminRoute>
       <AuthenticatedRoute path="/account">
         <Account />
       </AuthenticatedRoute>
+      <AdminRoute path="/users">
+        <Users />
+      </AdminRoute>
       <Route path="*">
         <NotFound />
       </Route>
