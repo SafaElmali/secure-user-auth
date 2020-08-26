@@ -31,3 +31,10 @@ export const SIGN_UP = gql`
         }
     }
 `
+
+export const GET_DASHBOARD_DATA = gql`
+    query GetDashboardData{
+        dashboardData
+    }
+`
+

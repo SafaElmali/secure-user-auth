@@ -1,6 +1,7 @@
 const { UserInputError, AuthenticationError } = require('apollo-server');
 const User = require('../models/user');
 const jwtDecode = require('jwt-decode');
+const dashboardData = require('../data/dashboardData');
 
 /*
 https://www.apollographql.com/docs/apollo-server/security/authentication/#authorization-in-resolvers*/
@@ -13,6 +14,9 @@ const resolvers = {
             // throw an error.
             // if (!context.currentUser || !context.currentUser.roles.includes('admin')) return null;
         },
+        dashboardData: (root, args, context) => {
+            return dashboardData;
+        }
     },
     Mutation: {
         createUser: async (root, args, context) => {

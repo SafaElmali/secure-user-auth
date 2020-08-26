@@ -1,6 +1,9 @@
 const { gql } = require('apollo-server');
 
 const typeDefs = gql`
+    """https://github.com/taion/graphql-type-json"""
+	scalar JSON
+
     enum Role {
         ADMIN,
         USER,
@@ -23,6 +26,7 @@ const typeDefs = gql`
 
     type Query {
         me:User
+        dashboardData:JSON
     }
 
     type Mutation{
