@@ -20,7 +20,7 @@
 - [ ] Silent Token - Refresh Token
 - [ ] log actions
 - [x] Display screens based on user role(s)
-- [x] Make a default template for panel
+- [x] Make a default template design for panel screens
 
 
 
