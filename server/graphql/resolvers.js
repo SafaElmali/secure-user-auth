@@ -15,6 +15,8 @@ const resolvers = {
             // if (!context.currentUser || !context.currentUser.roles.includes('admin')) return null;
         },
         dashboardData: (root, args, context) => {
+            console.log(context);
+            if (!context.currentUser) throw new AuthenticationError('You don"t have permission to access this data!');
             return dashboardData;
         }
     },
