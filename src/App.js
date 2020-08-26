@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, lazy, Suspense } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -6,15 +6,16 @@ import {
   Redirect,
 } from "react-router-dom";
 import { AuthProvider, AuthContext } from './context/AutContext';
-import Dashboard from './pages/Dashboard/Dashboard';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import Signup from './pages/Signup/Signup';
 import NotFound from './pages/NotFound/NotFound';
-import Inventory from './pages/Inventory/Inventory';
 import AppShell from './components/AppShell/AppShell';
-import Account from './pages/Account/Account';
-import Users from './pages/Users/Users';
+
+const Dashboard = lazy(() => import('./pages/Dashboard/Dashboard'));
+const Inventory = lazy(() => import('./pages/Inventory/Inventory'));
+const Account = lazy(() => import('./pages/Account/Account'));
+const Users = lazy(() => import('./pages/Users/Users'));
 
 const AuthenticatedRoute = ({ children, ...props }) => {
   const authContext = useContext(AuthContext);
@@ -51,6 +52,7 @@ const AppRoutes = () => {
   /* A <Switch> looks through its children <Route>s and
       renders the first one that matches the current URL. */
   return (
+    <Suspense fallback={<div>Loading..</div>}>
     <Switch>
       <Route path="/login">
         <Login />
@@ -77,6 +79,7 @@ const AppRoutes = () => {
         <NotFound />
       </Route>
     </Switch>
+    </Suspense>
   )
 }
 
