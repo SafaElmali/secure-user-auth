@@ -6,6 +6,9 @@ const resolvers = require('./graphql/resolvers');
 const jwt = require('jsonwebtoken');
 const User = require('./models/user');
 
+// deprecatedError fix:https://github.com/Automattic/mongoose/issues/6890
+mongoose.set('useCreateIndex', true);
+
 console.log("connecting to", process.env.MONGODB_URI)
 
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
