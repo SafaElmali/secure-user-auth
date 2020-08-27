@@ -1,6 +1,6 @@
 <div align="center">
   
-# Secure-User-Auth
+# 🔒 Secure-User-Auth 🔒 
 
 </div>
 
