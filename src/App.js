@@ -11,6 +11,7 @@ import Login from './pages/Login/Login';
 import Signup from './pages/Signup/Signup';
 import NotFound from './pages/NotFound/NotFound';
 import AppShell from './components/AppShell/AppShell';
+import Settings from './pages/Settings/Settings';
 
 const Dashboard = lazy(() => import('./pages/Dashboard/Dashboard'));
 const Inventory = lazy(() => import('./pages/Inventory/Inventory'));
@@ -53,32 +54,35 @@ const AppRoutes = () => {
       renders the first one that matches the current URL. */
   return (
     <Suspense fallback={<div>Loading..</div>}>
-    <Switch>
-      <Route path="/login">
-        <Login />
-      </Route>
-      <Route path="/signup">
-        <Signup />
-      </Route>
-      <Route exact path="/">
-        <Home />
-      </Route>
-      <AuthenticatedRoute path="/dashboard">
-        <Dashboard />
-      </AuthenticatedRoute>
-      <AdminRoute path="/inventory">
-        <Inventory />
-      </AdminRoute>
-      <AuthenticatedRoute path="/account">
-        <Account />
-      </AuthenticatedRoute>
-      <AdminRoute path="/users">
-        <Users />
-      </AdminRoute>
-      <Route path="*">
-        <NotFound />
-      </Route>
-    </Switch>
+      <Switch>
+        <Route path="/login">
+          <Login />
+        </Route>
+        <Route path="/signup">
+          <Signup />
+        </Route>
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <AuthenticatedRoute path="/dashboard">
+          <Dashboard />
+        </AuthenticatedRoute>
+        <AdminRoute path="/inventory">
+          <Inventory />
+        </AdminRoute>
+        <AuthenticatedRoute path="/account">
+          <Account />
+        </AuthenticatedRoute>
+        <AuthenticatedRoute path="/settings">
+          <Settings />
+        </AuthenticatedRoute>
+        <AdminRoute path="/users">
+          <Users />
+        </AdminRoute>
+        <Route path="*">
+          <NotFound />
+        </Route>
+      </Switch>
     </Suspense>
   )
 }
