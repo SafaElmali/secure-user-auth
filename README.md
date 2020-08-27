@@ -1,7 +1,7 @@
 <div align="center">
   
-# 🔒 Secure-User-Auth 🔒 
-
+# Secure User Authentication 🔒 
+_Secure your React app for the real world_
 </div>
 
 _You can find my notes in the wiki page_ -> [Wiki](https://github.com/SafaElmali/Secure-User-Auth/wiki)
