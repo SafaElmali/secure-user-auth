@@ -14,10 +14,21 @@ const resolvers = {
             // throw an error.
             // if (!context.currentUser || !context.currentUser.roles.includes('admin')) return null;
         },
-        dashboardData: (root, args, context) => {
+        getDashboardData: (root, args, context) => {
             console.log(context);
             if (!context.currentUser) throw new AuthenticationError('You don"t have permission to access this data!');
             return dashboardData;
+        },
+        getUsers: async (root, args, context) => {
+            console.log(context);
+            if (!context.currentUser) throw new AuthenticationError('You don"t have permission to access this data!');
+            try {
+
+                const userList = await User.find().lean().select("_id role name");
+                console.log(userList);
+            } catch (err) {
+                console.log(err)
+            }
         }
     },
     Mutation: {

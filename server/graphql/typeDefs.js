@@ -26,7 +26,8 @@ const typeDefs = gql`
 
     type Query {
         me:User
-        dashboardData:JSON
+        getDashboardData:JSON
+        getUsers:[User]
     }
 
     type Mutation{
