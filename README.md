@@ -4,6 +4,8 @@
 _Secure your React app for the real world_
 </div>
 
+<hr>
+
 _You can find my notes in the wiki page_ -> [Wiki](https://github.com/SafaElmali/Secure-User-Auth/wiki)
 
 ## Toolbox Of This Project 🧰 
@@ -37,10 +39,3 @@ _You can find my notes in the wiki page_ -> [Wiki](https://github.com/SafaElmali
 - [ ] log actions
 - [x] Display screens based on user role(s)
 - [x] Make a default template design for panel screens
-
-
-
-
-
-
-
