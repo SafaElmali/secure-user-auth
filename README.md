@@ -1,5 +1,10 @@
+<div align="center">
+  
+# Secure-User-Auth
 
-- You can find my notes in the wiki page -> [Wiki](https://github.com/SafaElmali/Secure-User-Auth/wiki)
+</div>
+
+_You can find my notes in the wiki page_ -> [Wiki](https://github.com/SafaElmali/Secure-User-Auth/wiki)
 
 ## Toolbox Of This Project 🧰 
 
