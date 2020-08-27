@@ -6,7 +6,11 @@ _Secure your React app for the real world_
 
 <hr>
 
+<div align="center">
+
 _You can find my notes in the wiki page_ -> [Wiki](https://github.com/SafaElmali/Secure-User-Auth/wiki)
+
+</div>
 
 ## Toolbox Of This Project 🧰 
 
