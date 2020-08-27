@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { useMutation } from '@apollo/client';
-import { LOGIN } from '../../graphql';
+import { LOGIN } from '../../graphql/mutations';
 import { Redirect } from 'react-router-dom';
 import { AuthContext } from '../../context/AutContext';
 
