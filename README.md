@@ -1,4 +1,6 @@
 
+- You can find my notes in the wiki page -> [Wiki](https://github.com/SafaElmali/Secure-User-Auth/wiki)
+
 ## Toolbox Of This Project 🧰 
 
 ### Server-Side
