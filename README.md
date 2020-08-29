@@ -1,7 +1,7 @@
 <div align="center">
   
 # Secure User Authentication 🔒 
-_Secure your React app for the real world_
+_An example project to demonstrate how to secure your applications_
 </div>
 
 <hr>
