@@ -71,7 +71,7 @@ const resolvers = {
             // *** lean(): https://mongoosejs.com/docs/tutorials/lean.html
             // This makes queries faster and less memory intensive, but the result documents are plain old JavaScript objects (POJOs), not Mongoose documents
             const user = await User.findOne({ name: args.name });
-
+            
             if (!user) throw new AuthenticationError('User Not Found!');
 
             return user.authenticate(args.password).then(isMatch => {
@@ -94,7 +94,6 @@ const resolvers = {
 
                 return {
                     message: 'Authentication successful!',
-                    token,
                     userInfo,
                     expiresAt
                 }

@@ -6,8 +6,10 @@ import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@ap
 import { setContext } from 'apollo-link-context';
 
 // authorization config : https://www.apollographql.com/docs/react/networking/authentication/#header 
+// cookie: https://www.apollographql.com/docs/react/networking/authentication/#cookie
 const httpLink = createHttpLink({
-  uri: 'http://localhost:4000/',
+  uri: 'http://localhost:4000/graphql',
+  credentials: 'include'
 });
 
 // apollo-link-context:https://www.apollographql.com/docs/link/links/context/

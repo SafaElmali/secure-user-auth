@@ -1,10 +1,14 @@
 require('dotenv').config();
-const { ApolloServer, AuthenticationError } = require('apollo-server');
+const { ApolloServer, AuthenticationError } = require('apollo-server-express');
 const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
+const express = require('express');
 const typeDefs = require('./graphql/typeDefs');
 const resolvers = require('./graphql/resolvers');
-const jwt = require('jsonwebtoken');
 const User = require('./models/user');
+const { corsOptions } = require('./utils/options');
+
+const app = express();
 
 // deprecatedError fix:https://github.com/Automattic/mongoose/issues/6890
 mongoose.set('useCreateIndex', true);
@@ -47,9 +51,15 @@ const server = new ApolloServer({
 
             return { currentUser }
         }
-    }
+    },
 })
 
-server.listen().then(({ url }) => {
-    console.log(`server running at ${url}`)
-})
+server.applyMiddleware({ app, cors: corsOptions });
+
+// server.listen().then(({ url }) => {
+//     console.log(`server running at ${url}`)
+// })
+
+app.listen({ port: process.env.PORT }, () =>
+    console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
+)
