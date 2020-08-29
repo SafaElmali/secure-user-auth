@@ -97,7 +97,7 @@ const resolvers = {
                 const decodeToken = jwtDecode(token);
                 const expiresAt = decodeToken.exp;
 
-                context.cookie('token', token, {
+                context.res.cookie('token', token, {
                     httpOnly: true
                 });
 

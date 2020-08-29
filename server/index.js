@@ -5,14 +5,12 @@ const { ApolloServer, AuthenticationError } = require('apollo-server-express');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const express = require('express');
-const cookieParser = require('cookie-parser')
 const typeDefs = require('./graphql/typeDefs');
 const resolvers = require('./graphql/resolvers');
 const User = require('./models/user');
 const { corsOptions } = require('./utils/options');
 
 const app = express();
-app.use(cookieParser())
 
 // deprecatedError fix:https://github.com/Automattic/mongoose/issues/6890
 mongoose.set('useCreateIndex', true);
