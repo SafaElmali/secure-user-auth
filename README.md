@@ -1,5 +1,7 @@
 <div align="center">
-  
+
+<img src="https://github.com/SafaElmali/Secure-User-Auth/blob/master/src/demo/images/cover.png" width="350" height="350" />
+
 # Secure User Authentication 🔒 
 _An example project to demonstrate how to secure your applications_
 </div>
