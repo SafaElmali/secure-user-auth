@@ -5,12 +5,14 @@ const { ApolloServer, AuthenticationError } = require('apollo-server-express');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const express = require('express');
+const cookieParser = require('cookie-parser')
 const typeDefs = require('./graphql/typeDefs');
 const resolvers = require('./graphql/resolvers');
 const User = require('./models/user');
 const { corsOptions } = require('./utils/options');
 
 const app = express();
+app.use(cookieParser())
 
 // deprecatedError fix:https://github.com/Automattic/mongoose/issues/6890
 mongoose.set('useCreateIndex', true);
@@ -39,7 +41,8 @@ const server = new ApolloServer({
     // https://www.apollographql.com/docs/apollo-server/api/apollo-server/
 
     // Get the user token from the headers.
-    context: async ({ req }) => {
+    // Set the cookie:  https://stackoverflow.com/questions/59021384/how-to-pass-cookie-from-apollo-server-to-apollo-clenet
+    context: async ({ res, req }) => {
         const auth = req ? req.headers.authorization : null
         if (auth && auth.toLowerCase().startsWith('bearer ')) {
             const decodedToken = jwt.verify(
@@ -51,8 +54,10 @@ const server = new ApolloServer({
 
             const currentUser = await User.findOne({ name: decodedToken.name }).lean();
 
-            return { currentUser }
+            return { currentUser, res }
         }
+
+        return { res };
     },
 })
 
