@@ -1,4 +1,6 @@
 require('dotenv').config();
+
+// Apollo server express configs: https://www.apollographql.com/docs/apollo-server/migration-two-dot/
 const { ApolloServer, AuthenticationError } = require('apollo-server-express');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
