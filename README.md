@@ -10,7 +10,7 @@ _An example project to demonstrate how to secure your applications_
 
 <div align="center">
 
-_You can find my notes in the wiki page_ -> [Wiki](https://github.com/SafaElmali/Secure-User-Auth/wiki)
+_You can find my notes in the wiki page_ -> [Wiki](https://github.com/SafaElmali/Secure-User-Auth/wiki) <br/>
 _You can find the Kanban board in here_ -> [Project Board](https://github.com/SafaElmali/Secure-User-Auth/projects/1?add_cards_query=is%3Aopen)
 
 </div>
