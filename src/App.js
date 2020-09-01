@@ -11,7 +11,7 @@ import Login from './pages/Login/Login';
 import Signup from './pages/Signup/Signup';
 import NotFound from './pages/NotFound/NotFound';
 import AppShell from './components/AppShell/AppShell';
-import Settings from                         './pages/Settings/Settings';
+import Settings from                            './pages/Settings/Settings';
 
 const Dashboard = lazy(() => import('./pages/Dashboard/Dashboard'));
 const Inventory = lazy(() => import('./pages/Inventory/Inventory'));
