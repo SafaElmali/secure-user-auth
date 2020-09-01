@@ -25,15 +25,21 @@
     "precommit": "lint-staged"
   },
   "lint-staged": {
-    "*.js": [
+    "./src/**/*.{md,js,jsx,ts,tsx,css,scss}": [
       "prettier --write",
       "git add"
     ]
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
   "devDependencies": {
     "husky": "^4.2.5",
     "lint-staged": "^10.2.13",
-    "prettier": "^2.1.1"
+    "prettier": "^2.1.1",
+    "pretty-quick": "^3.0.0"
   },
   "eslintConfig": {
     "extends": "react-app"
