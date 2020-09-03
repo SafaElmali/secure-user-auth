@@ -44,13 +44,11 @@ const AuthProvider = ({ children }) => {
 
   // Check has token && token is valid
   const isAuthenticated = () => {
-    // if (!authState.token || !authState.expiresAt) {
-    if (!authState.token) {
+    if (!authState.token || !authState.expiresAt) {
       return false;
     }
 
-    return true;
-    // return new Date().getTime() / 1000 < authState.expiresAt;
+    return new Date().getTime() / 1000 < authState.expiresAt;
   };
 
   return (

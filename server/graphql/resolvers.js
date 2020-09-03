@@ -64,6 +64,7 @@ const resolvers = {
             message: "User Created!",
             token,
             userInfo,
+            expiresAt: decodeToken.exp,
           };
         } else {
           return {
@@ -114,6 +115,7 @@ const resolvers = {
             message: "Authentication successful!",
             token,
             userInfo,
+            expiresAt: decodeToken.exp,
           };
         })
         .catch((err) => {
