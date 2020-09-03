@@ -9,8 +9,10 @@ const typeDefs = require('./graphql/typeDefs');
 const resolvers = require('./graphql/resolvers');
 const User = require('./models/user');
 const { corsOptions } = require('./utils/options');
+const cookieParser = require('cookie-parser');
 
 const app = express();
+app.use(cookieParser());
 
 // deprecatedError fix:https://github.com/Automattic/mongoose/issues/6890
 mongoose.set('useCreateIndex', true);
@@ -41,21 +43,24 @@ const server = new ApolloServer({
     // Get the user token from the headers.
     // Set the cookie:  https://stackoverflow.com/questions/59021384/how-to-pass-cookie-from-apollo-server-to-apollo-clenet
     context: async ({ res, req }) => {
+        const { token } = req.cookies;
         const auth = req ? req.headers.authorization : null
+        let decodedToken = undefined;
+
         if (auth && auth.toLowerCase().startsWith('bearer ')) {
-            const decodedToken = jwt.verify(
+            decodedToken = jwt.verify(
                 auth.substring(7), process.env.JWT_SECRET)
-
-            // we could also check user roles/permissions here
-            // optionally block the user
-            if (!decodedToken) throw new AuthenticationError('you must be logged in');
-
-            const currentUser = await User.findOne({ name: decodedToken.name }).lean();
-
-            return { currentUser, res }
+        } else if (token) {
+            decodedToken = jwt.verify(token, process.env.JWT_SECRET)
+        } else {
+            return { res };
         }
-
-        return { res };
+        
+        // we could also check user roles/permissions here
+        // optionally block the user
+        if (!decodedToken) throw new AuthenticationError('you must be logged in');
+        const currentUser = await User.findOne({ name: decodedToken.name }).lean();
+        return { currentUser, res }
     },
 })
 
