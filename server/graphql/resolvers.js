@@ -46,8 +46,7 @@ const resolvers = {
           const token = savedUser.generateJWT();
           const decodeToken = jwtDecode(token);
 
-          // Date year 1970 fix: https://stackoverflow.com/questions/39498785/decoding-the-expiry-date-of-a-javascript-web-token-jwt
-          const expiresAt = decodeToken.exp * 1000;
+          const expiresAt = new Date(decodeToken.exp * 1000);
 
           const userInfo = {
             name: savedUser.name,
@@ -58,14 +57,13 @@ const resolvers = {
 
           context.res.cookie("token", token, {
             httpOnly: true,
-            expires: new Date(expiresAt),
+            expiresAt: expiresAt,
           });
 
           return {
             message: "User Created!",
             token,
             userInfo,
-            // expiresAt
           };
         } else {
           return {
@@ -105,19 +103,17 @@ const resolvers = {
           const token = user.generateJWT();
           const decodeToken = jwtDecode(token);
 
-          // Date year 1970 fix: https://stackoverflow.com/questions/39498785/decoding-the-expiry-date-of-a-javascript-web-token-jwt
-          const expiresAt = decodeToken.exp * 1000;
+          const expiresAt = new Date(decodeToken.exp * 1000);
 
           context.res.cookie("token", token, {
             httpOnly: true,
-            expires: new Date(expiresAt),
+            expires: expiresAt,
           });
 
           return {
             message: "Authentication successful!",
             token,
             userInfo,
-            // expiresAt
           };
         })
         .catch((err) => {
