@@ -53,3 +53,8 @@ _You can find the Kanban board in here_ -> [Project Board](https://github.com/Sa
 - [x] Display screens based on user role(s)
 - [x] Make a default template design for panel screens
 - [ ] Explain which package used why
+
+
+### License
+
+Secure-User-Auth is [MIT licensed](./LICENSE).
