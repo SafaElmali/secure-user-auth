@@ -57,4 +57,4 @@ _You can find the Kanban board in here_ -> [Project Board](https://github.com/Sa
 
 ### License
 
-Secure-User-Auth is [MIT licensed](./LICENSE).
+secure-user-auth is [MIT licensed](./LICENSE).
